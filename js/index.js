@@ -14,7 +14,7 @@ const $replayRecording = document.getElementById('replayRecording')
 const $cursor = document.getElementById('cursor')
 
 // Variables/data
-let isRecording = false
+let isRecording = false;
 let mouseMoves = [
 	// Examples:
 	// {x: 123, y:212, t:0},
@@ -51,23 +51,24 @@ $startAndStop.addEventListener('click', (event) => {
 
 // Replay recording
 $replayRecording.addEventListener('click', (event) => {
-	
-	const record = (count) => {
+
+	const record = () => {
 
 		mouseMoves.forEach((num) => {
-			setTimeout (function(){
-							$cursor.style.setProperty('--x', num.x);
-							$cursor.style.setProperty('--y', num.y);
-							count++;
-							record(count);
-						}, 1000);
+			setTimeout(() => {
+				$cursor.style.setProperty('--x', num.x);
+				$cursor.style.setProperty('--y', num.y);
+				record();
+			}, 1000);
+			
 		})
 	}
-	record (0);
+	record ();
+
+	
 	// Set the x and y for each mouse move recorded (123, 456 are examples)
 	// $cursor.style.setProperty('--x', 123)
 	// $cursor.style.setProperty('--y', 456)
 
 })
 
-//clear interval
