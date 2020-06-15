@@ -14,7 +14,7 @@ const $replayRecording = document.getElementById('replayRecording')
 const $cursor = document.getElementById('cursor')
 
 // Variables/data
-let isRecording = true
+let isRecording = false
 let mouseMoves = [
 	// Examples:
 	// {x: 123, y:212, t:0},
@@ -23,27 +23,51 @@ let mouseMoves = [
 ]
 
 // Each movement of the mouse
-window.addEventListener('mousemove', (event) => {
-	if (isRecording) {
-		console.log(event.clientX, event.clientY, event.timeStamp)
+let recordEvent = window.addEventListener('mousemove', (event) => {
+	if (isRecording && event.timeStamp <=5000) {
+		let Movelist = {
+			x : event.clientX,
+			y : event.clientY,
+			t : event.timeStamp
+		}
+		console.log(Movelist);
+		mouseMoves.push(Movelist);
+		}
+	
 		// Record the data to the Array
-	  // this is one of many ways to prevent recording, consider you may also use removeEventListener() as well
-
-	}
+	  // this is one of many ways to prevent recording, consider you may also use removeEventListener() as wel
 })
 
 // Start/stop the recording
 $startAndStop.addEventListener('click', (event) => {
-	
-
+	if(isRecording = !isRecording) {
+		recordEvent;
+	} else {
+		console.log(`Recording has been stopped...!!!`)
+	}
 })
+
+
 
 // Replay recording
 $replayRecording.addEventListener('click', (event) => {
 	
+	const record = (count) => {
+
+		mouseMoves.forEach((num) => {
+			setTimeout (function(){
+							$cursor.style.setProperty('--x', num.x);
+							$cursor.style.setProperty('--y', num.y);
+							count++;
+							record(count);
+						}, 1000);
+		})
+	}
+	record (0);
 	// Set the x and y for each mouse move recorded (123, 456 are examples)
 	// $cursor.style.setProperty('--x', 123)
 	// $cursor.style.setProperty('--y', 456)
 
 })
 
+//clear interval
