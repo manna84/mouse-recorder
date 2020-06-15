@@ -47,13 +47,10 @@ $startAndStop.addEventListener('click', (event) => {
 	}
 })
 
-
-
 // Replay recording
 $replayRecording.addEventListener('click', (event) => {
 
 	const record = () => {
-
 		mouseMoves.forEach((num) => {
 			setTimeout(() => {
 				$cursor.style.setProperty('--x', num.x);
@@ -64,8 +61,6 @@ $replayRecording.addEventListener('click', (event) => {
 		})
 	}
 	record ();
-
-	
 	// Set the x and y for each mouse move recorded (123, 456 are examples)
 	// $cursor.style.setProperty('--x', 123)
 	// $cursor.style.setProperty('--y', 456)
